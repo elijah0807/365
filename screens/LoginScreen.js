@@ -8,24 +8,56 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from "react-native";
-import { auth, store } from "../firebase";
+// import { auth, store } from "../firebase";
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
   const handleGoto = () => {
     navigation.navigate('SignupScreen');
   };
   const handleLogin = () => {
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then(userCredentials => {
-        const user = userCredentials.user;
-        navigation.navigate('HomeScreen');
+    // auth
+    //   .signInWithEmailAndPassword(email, password)
+    //   .then(userCredentials => {
+    //     const user = userCredentials.user;
+    //     navigation.navigate('HomeScreen');
+    //   })
+    //   .catch(error => alert(error.message))
+
+    var APIURL = "https://bestbuy.space/login.php";
+
+      var headers = {
+        'Accept' : 'application/json',
+        'Content-Type' : 'application/json'
+      };
+            
+      var Data ={
+        username: username,
+        password: password
+      };
+
+      fetch(APIURL,{
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(Data)
       })
-      .catch(error => alert(error.message))
+      .then((Response)=>Response.json())
+      .then((Response)=>{
+        // alert(Response[0].Message)
+        if (Response[0].Message == "Success") {
+          navigation.replace("HomeScreen");
+        }
+        // console.log(Data);
+        Alert.alert(Response[0].Message);
+      })
+      .catch((error)=>{
+        console.error("ERROR FOUND" + error);
+      })
+    
   };
   return (
     <KeyboardAvoidingView style={styles.container}>
@@ -33,9 +65,9 @@ const LoginScreen = () => {
 
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder="Email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
+          placeholder="Username"
+          value={username}
+          onChangeText={(text) => setUsername(text)}
           style={styles.input}
         />
         <TextInput
