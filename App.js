@@ -12,6 +12,7 @@ import ContactInfo from "./screens/ContactInfo";
 import HomeScreen from "./screens/HomeScreen";
 import CategoriesScreen from "./screens/CategoriesScreen";
 import Products from "./screens/Products";
+import PostAdsScreen from "./screens/PostAdsScreen";
 // import MyNavigator from './navigation/navigation';
 
 
