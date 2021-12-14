@@ -1,4 +1,4 @@
-import { StatusBar } from "expo-status-bar";
+// import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 // import {WebView} from 'react-native-webview';
@@ -10,8 +10,13 @@ import SignupScreen from "./screens/SignupScreen";
 import RegistrationSuccessful from "./screens/RegistrationSuccessful";
 import ContactInfo from "./screens/ContactInfo";
 import HomeScreen from "./screens/HomeScreen";
+import CategoriesScreen from "./screens/CategoriesScreen";
+import Products from "./screens/Products";
+// import MyNavigator from './navigation/navigation';
+
 
 const Stack = createNativeStackNavigator();
+// const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
@@ -21,6 +26,16 @@ export default function App() {
     // </View>
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen
+          options={{ headerShown: false }}
+          name="HomeScreen"
+          component={HomeScreen}
+        />
+      <Stack.Screen
+          options={{ headerShown: false }}
+          name="LoginScreen"
+          component={LoginScreen}
+        />
         <Stack.Screen
           options={{ headerShown: false }}
           name="SignupScreen"
@@ -33,8 +48,13 @@ export default function App() {
         />
         <Stack.Screen
           options={{ headerShown: false }}
-          name="LoginScreen"
-          component={LoginScreen}
+          name="AllCategories"
+          component={CategoriesScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Products"
+          component={Products}
         />
         
         <Stack.Screen
@@ -42,13 +62,10 @@ export default function App() {
           name="RegistrationSuccessful"
           component={RegistrationSuccessful}
         />
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="HomeScreen"
-          component={HomeScreen}
-        />
+        
       </Stack.Navigator>
     </NavigationContainer>
+    // <MyNavigator/>
     // <WebView source={{ uri: 'https://bestbuy.space/' }} />
   );
 }
